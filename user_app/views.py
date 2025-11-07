@@ -10,6 +10,8 @@ from user_app.forms import UserregistrationForm
 
 from user_app.models import CustomUser
 
+from django.core.mail import send_mail
+
 class RegistrationView(View):
 
     def get(self,request):
@@ -23,11 +25,22 @@ class RegistrationView(View):
 
         print(request.POST)
 
-        CustomUser.objects.create_user(username= request.POST.get('username'),
-                                       mobile_number = request.POST.get('mobile_number'),
-                                        email = request.POST.get('email'),
-                                        password = request.POST.get('password') )
+        if CustomUser.objects.create_user(username= request.POST.get('username'),
+                                          mobile_number = request.POST.get('mobile_number'),
+                                          email = request.POST.get('email'),
+                                          password = request.POST.get('password')):
         
+            mail =  send_mail(subject="Hello dietLens",
+                     message="Welcom to DietLens",
+                     from_email="23mca38@mgit.ac.in",
+                     recipient_list=[request.POST.get("email")],
+                     fail_silently=True)
+            
+
+            if mail:
+
+                print("success")
+
         form = UserregistrationForm()
         
         return render(request,"registration.html",{"form":form})

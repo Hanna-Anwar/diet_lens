@@ -68,6 +68,15 @@ TEMPLATES = [
 ]
 
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "23mca38@mgits.ac.in"  
+EMAIL_HOST_PASSWORD = "smwm fjrd tnjx czvi"
+
+#entered manually
 AUTH_USER_MODEL = "user_app.CustomUser"
 
 WSGI_APPLICATION = 'diet_project.wsgi.application'

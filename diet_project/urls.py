@@ -27,4 +27,8 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name="login"),
 
     path('logout/',LogoutView.as_view(),name="logout"),
+
+    path('forget/',ForgotemailView.as_view(),name="forgot"),
+
+    path('otpverify/',OtpVerifyView.as_view(),name="otpverify"),
 ]

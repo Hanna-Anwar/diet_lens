@@ -4,11 +4,13 @@ from django.views.generic import View
 
 from django.contrib.auth import authenticate,login,logout
 
-from user_app.forms import UserregistrationForm
+from user_app.forms import UserregistrationForm,ForgotemailForm,OtpverifyForm
 
 from user_app.models import CustomUser
 
 from django.core.mail import send_mail
+
+import random
 
 class RegistrationView(View):
 
@@ -87,9 +89,43 @@ class LogoutView(View):
         logout(request)
 
         return redirect("login")
-  
+    
+class ForgotemailView(View):
 
+    def get(self,request):
 
+        form  = ForgotemailForm()
 
+        return render(request,"forget.html",{"form":form})
+    
+    def post(self,request):
 
+        email = request.POST.get('email')
+
+        user = CustomUser.objects.get(email=email)
+
+        if user:
+
+            otp_generate = random.randint(1000,9999)
+
+            request.session['otp'] = otp_generate
+
+            request.session['email'] = email
+
+            send_mail(subject = "forget password",
+                      message = str(otp_generate),
+                      from_email="23mca38@mgits.ac.in",
+                      recipient_list = [email])
+             
+            print("done")
+
+        return render(request,"forget.html")
+    
+class OtpVerifyView(View):
+
+    def get(self,request):
+
+        form = OtpverifyForm()
+
+        return render(request,"otpverify.html",{"form":form})
   

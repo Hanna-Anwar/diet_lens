@@ -1,7 +1,5 @@
 from django.shortcuts import render,redirect
 
-# Create your views here.
-
 from django.views.generic import View
 
 from django.contrib.auth import authenticate,login,logout
@@ -23,27 +21,41 @@ class RegistrationView(View):
 
     def post(self,request):
 
-        print(request.POST)
+        form = UserregistrationForm(request.POST)
 
-        if CustomUser.objects.create_user(username= request.POST.get('username'),
-                                          mobile_number = request.POST.get('mobile_number'),
-                                          email = request.POST.get('email'),
-                                          password = request.POST.get('password')):
-        
-            mail =  send_mail(subject="Hello dietLens",
-                     message="Welcom to DietLens",
-                     from_email="23mca38@mgit.ac.in",
-                     recipient_list=[request.POST.get("email")],
-                     fail_silently=True)
+        if form.is_valid():
+
             
 
-            if mail:
+    #def post(self,request):
+    # 
+    #   print(request.POST)
+    # 
+    #   form = UserregisterForm(request.POST)
+    #   
+    #   if form.is_valid():
+    # 
+    #       print(form.cleaned_data)
+    #       CustomUser.objects.create_user(username = form.cleaned_data.get("username"),
+    #                                      email = form.clened_data.get("email"),
+    #                                      mobile_number = form.cleaned_data.get("mobile_number"),
+    #                                      password = form.cleaned_data.get("password"))
+    # 
+    #       return render(request,"signup.html")
+    #   return render(request,"signup.html")
+            
 
-                print("success")
-
-        form = UserregistrationForm()
+            CustomUser.objects.create_user(username= form.cleaned_data.get('username'),
+                                          mobile_number = form.cleaned_data.get('mobile_number'),
+                                          email = form.cleaned_data.get('email'),
+                                          password = form.cleaned_data.get('password'))
+         
+            form = UserregistrationForm()
         
+            return render(request,"registration.html",{"form":form})
         return render(request,"registration.html",{"form":form})
+
+        
     
 
 class  LoginView(View):
@@ -75,6 +87,9 @@ class LogoutView(View):
         logout(request)
 
         return redirect("login")
-        
+  
 
 
+
+
+  

@@ -4,13 +4,15 @@ from django.views.generic import View
 
 from django.contrib.auth import authenticate,login,logout
 
-from user_app.forms import UserregistrationForm,ForgotemailForm,OtpverifyForm
+from user_app.forms import UserregistrationForm,ForgotemailForm,OtpverifyForm,ResetPasswordForm
 
 from user_app.models import CustomUser
 
 from django.core.mail import send_mail
 
 import random
+
+from django.contrib.auth.hashers import make_password
 
 class RegistrationView(View):
 
@@ -55,6 +57,7 @@ class RegistrationView(View):
             form = UserregistrationForm()
         
             return render(request,"registration.html",{"form":form})
+        
         return render(request,"registration.html",{"form":form})
 
         
@@ -128,4 +131,46 @@ class OtpVerifyView(View):
         form = OtpverifyForm()
 
         return render(request,"otpverify.html",{"form":form})
+    
+    def post(self,request):
+
+        form = OtpverifyForm(request.POST)
+ 
+        otp = request.POST.get('otp')
+
+        if request.session.get('otp')==int(otp):
+
+            return redirect("reset")
+        
+        form = OtpverifyForm()
+        
+        return render(request,"otpverify.html",{"form":form})
+     
+class ResetPassView(View):
+
+    def get(self,request):
+
+        form  = ResetPasswordForm()
+
+        return render(request,"reset.html",{"form":form}) 
+
+    def post(self,request):
+
+        new_password = request.POST.get('new_password')
+
+        confirm_password = request.POST.get('confirm_password')
+
+        if new_password!=confirm_password:
+
+            return render(request,"reset.html")
+        
+        email = request.session.get('email')
+
+        user = CustomUser.objects.get(email =email)
+
+        user.password = make_password(new_password)
+
+        user.save()
+
+        return redirect("login")
   

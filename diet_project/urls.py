@@ -31,4 +31,6 @@ urlpatterns = [
     path('forget/',ForgotemailView.as_view(),name="forgot"),
 
     path('otpverify/',OtpVerifyView.as_view(),name="otpverify"),
+
+    path('reset/',ResetPassView.as_view(),name="reset"),
 ]

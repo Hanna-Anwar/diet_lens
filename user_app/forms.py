@@ -19,3 +19,9 @@ class ForgotemailForm(forms.Form):
 class OtpverifyForm(forms.Form):
      
      otp = forms.CharField(max_length=10)
+
+class ResetPasswordForm(forms.Form):
+
+     new_password = forms.CharField(max_length=20)
+
+     confirm_password = forms.CharField(max_length=20)

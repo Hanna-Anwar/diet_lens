@@ -27,9 +27,15 @@ class RegistrationView(View):
 
         form = UserregistrationForm(request.POST)
 
-        if form.is_valid():
-
-            
+        CustomUser.objects.create_user(username= request.POST.get('username'),
+                                       mobile_number = request.POST.get('mobile_number'),
+                                        email = request.POST.get('email'),
+                                        password = request.POST.get('password') )
+        
+        form = UserregistrationForm()
+        
+        return render(request,"registration.html",{"form":form})
+    
 
     #def post(self,request):
     # 
@@ -48,21 +54,6 @@ class RegistrationView(View):
     #       return render(request,"signup.html")
     #   return render(request,"signup.html")
             
-
-            CustomUser.objects.create_user(username= form.cleaned_data.get('username'),
-                                          mobile_number = form.cleaned_data.get('mobile_number'),
-                                          email = form.cleaned_data.get('email'),
-                                          password = form.cleaned_data.get('password'))
-         
-            form = UserregistrationForm()
-        
-            return render(request,"registration.html",{"form":form})
-        
-        return render(request,"registration.html",{"form":form})
-
-        
-    
-
 class  LoginView(View):
 
     def get(self,request):
@@ -93,6 +84,11 @@ class LogoutView(View):
 
         return redirect("login")
     
+#forget Password views 3 view
+
+
+#for entering the mail and get otp
+
 class ForgotemailView(View):
 
     def get(self,request):
@@ -123,6 +119,8 @@ class ForgotemailView(View):
             print("done")
 
         return render(request,"forget.html")
+    
+#for entering  and verifing the otp
     
 class OtpVerifyView(View):
 
@@ -173,4 +171,6 @@ class ResetPassView(View):
         user.save()
 
         return redirect("login")
-  
+ 
+
+ 

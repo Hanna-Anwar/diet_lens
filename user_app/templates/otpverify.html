@@ -1,4 +1,30 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title%} Otp verification {% endblock %}
+
+
+{% block content %}
+
+
+ <form action="" method="post">
+        {%csrf_token%}
+
+        {{form}}
+
+        <button type="submit" style="margin-top: 10px;">verify</button>
+    </form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,4 +41,4 @@
         <button type="submit" style="margin-top: 10px;">verify</button>
     </form>
 </body>
-</html>
+</html> -->

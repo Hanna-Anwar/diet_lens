@@ -15,7 +15,7 @@ def send_register_mail(sender,instance,created,**kwargs):
 
         message = "Welcome to dietLens"
 
-        from_email = "23mca38@mgit.ac.in"
+        from_email = "23mca38@mgits.ac.in"
 
         recipient_list = [instance.email]
 

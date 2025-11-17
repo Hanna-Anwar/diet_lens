@@ -10,15 +10,53 @@ class UserregistrationForm(forms.ModelForm):
 
          fields = ['username','mobile_number','email','password']
 
+         #its a dictionery
+         #textInput is a method
+
+         widgets = {
+              
+              "username": forms.TextInput(attrs={
+                   
+                   "class":"form-control",
+                   "placeholder":"enter your username"
+                   
+              }),
+
+              "mobile_number":forms.TextInput(attrs={
+                    "class":"form-control",
+                   "placeholder":"enter your mobile_no"
+              }),
+              
+              "email":forms.EmailInput(attrs={
+                   
+                    "class":"form-control",
+                   "placeholder":"enter your email"
+                   
+              }),
+
+              "password":forms.PasswordInput(attrs={
+                   "class":"form-control",
+                   "placeholder":"enter your password"
+
+              })
+
+              
+         }
+
+
 class ForgotemailForm(forms.Form): 
      
      email = forms.CharField(max_length=30)
 
-     #used form insteadof Modelform because their is no model
+     #used form instead of Modelform because their is no model
+
+
 
 class OtpverifyForm(forms.Form):
      
      otp = forms.CharField(max_length=10)
+
+     
 
 class ResetPasswordForm(forms.Form):
 

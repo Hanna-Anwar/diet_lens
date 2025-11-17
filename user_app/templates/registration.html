@@ -1,12 +1,40 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title%} Register {% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+
+  {%csrf_token%}
+
+  {{form.as_p}}
+
+  <button type="submit" class="">register</button>
+
+</form>
+
+{% endblock %}
+
+
+<!-- <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
+
 </head>
+
 <body>
+
   <h1>SignUp Form</h1>
+
     <form action="" method="post">
 
    {% csrf_token %}
@@ -14,7 +42,9 @@
    {{form.as_p}}
 
    <button type="submit">register</button>
+
     </form>
     
 </body>
-</html>
+
+</html> -->

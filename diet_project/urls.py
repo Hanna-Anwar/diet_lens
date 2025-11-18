@@ -19,6 +19,8 @@ from django.urls import path
 
 from user_app.views import *
 
+from diet_advisor_app.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -33,4 +35,8 @@ urlpatterns = [
     path('otpverify/',OtpVerifyView.as_view(),name="otpverify"),
 
     path('reset/',ResetPassView.as_view(),name="reset"),
+
+    path('',BaseView.as_view(),name="home"),
+
+    path('profile/',CreateProfileView.as_view(),name="profile")
 ]

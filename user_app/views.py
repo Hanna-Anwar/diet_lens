@@ -85,8 +85,6 @@ class LogoutView(View):
         return redirect("login")
     
 #forget Password views 3 view
-
-
 #for entering the mail and get otp
 
 class ForgotemailView(View):
@@ -172,5 +170,9 @@ class ResetPassView(View):
 
         return redirect("login")
  
+class BaseView(View):
 
+    def get(self,request):
+
+        return render(request,"home.html")
  
